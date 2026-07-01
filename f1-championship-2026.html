@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F1 Championship 2026 — FASTEST LAP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Quantico:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;color:#111;font-family:'Quantico','Chakra Petch',sans-serif;min-height:100vh}
+
+:root{
+  --red:#E8002D;--gold:#B8860B;--silver:#888;--bronze:#A0522D;
+  --bg:#fff;--surface:#F6F6F6;--card:#fff;--border:#E8E8E8;
+  --text:#111;--muted:#888;--subtle:#D0D0D0;
+}
+
+.wrap{max-width:1400px;margin:0 auto;padding:40px 32px 64px}
+
+/* ── Header ── */
+.hd{display:flex;align-items:center;gap:14px;margin-bottom:28px;flex-wrap:wrap}
+.hd-stripe{width:4px;height:40px;background:var(--red);border-radius:2px;flex-shrink:0}
+.hd-title{
+  font-family:'Quantico','Chakra Petch',sans-serif;
+  font-size:clamp(20px,4vw,30px);font-weight:700;
+  text-transform:uppercase;letter-spacing:.04em;line-height:1;color:var(--text);
+}
+.hd-title em{color:var(--red);font-style:normal}
+.hd-badge{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(232,0,45,.07);border:1px solid rgba(232,0,45,.18);
+  border-radius:20px;padding:4px 10px;margin-left:auto;
+  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);
+  white-space:nowrap;
+}
+.hd-dot{width:6px;height:6px;border-radius:50%;background:var(--red);animation:fl-pulse 1.5s ease-in-out infinite;flex-shrink:0}
+
+/* ── Tabs ── */
+.tabs{
+  display:flex;gap:3px;background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:4px;margin-bottom:20px;overflow-x:auto;scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  flex:1;min-width:90px;padding:9px 14px;border:none;background:transparent;border-radius:7px;
+  font-family:'Quantico','Chakra Petch',sans-serif;font-size:13px;font-weight:700;
+  letter-spacing:.04em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .2s;
+  white-space:nowrap;
+}
+.tab:hover{color:var(--text)}
+.tab.on{background:var(--red);color:#fff}
+
+/* ── Panel ── */
+.panel{display:none}
+.panel.on{display:block}
+.panel-label{
+  font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:12px;
+}
+
+/* ── Table ── */
+.tbl-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tbl{width:100%;border-collapse:collapse;min-width:280px}
+.tbl thead tr{border-bottom:2px solid var(--border)}
+.tbl th{
+  font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);padding:0 10px 10px;text-align:left;white-space:nowrap;
+}
+.tbl th.r{text-align:right}
+.tbl th.c{text-align:center}
+.tbl tbody tr{border-bottom:1px solid var(--border);transition:background .12s}
+.tbl tbody tr:hover{background:#FAFAFA}
+.tbl tbody tr:last-child{border-bottom:none}
+.tbl td{padding:11px 10px;font-size:13px;color:var(--text);vertical-align:middle}
+.tbl td.r{text-align:right}
+.tbl td.c{text-align:center}
+
+/* Position */
+.pos{
+  font-family:'Quantico','Chakra Petch',sans-serif;
+  font-size:16px;font-weight:700;color:var(--subtle);width:34px;
+}
+.pos.p1{color:var(--gold)}
+.pos.p2{color:var(--silver)}
+.pos.p3{color:var(--bronze)}
+
+/* Driver cell */
+.driver{display:flex;align-items:center;gap:9px}
+.tbar{width:3px;height:28px;border-radius:2px;flex-shrink:0}
+.dname{
+  font-family:'Quantico','Chakra Petch',sans-serif;
+  font-size:14px;font-weight:700;letter-spacing:.02em;line-height:1.1;color:#111;
+}
+.dteam{font-size:10px;color:var(--muted);margin-top:2px}
+.dcode{
+  font-family:'Quantico','Chakra Petch',sans-serif;
+  font-size:10px;font-weight:700;color:var(--subtle);letter-spacing:.08em;margin-left:auto;
+}
+
+/* Points */
+.pts{
+  font-family:'Quantico','Chakra Petch',sans-serif;
+  font-size:17px;font-weight:700;color:#111;white-space:nowrap;
+}
+.pts small{font-size:10px;color:var(--muted);font-weight:400}
+
+/* Wins */
+.wins{
+  font-family:'Quantico','Chakra Petch',sans-serif;
+  font-size:13px;font-weight:700;color:var(--subtle);
+}
+.wins.w{color:var(--gold)}
+
+/* Constructor */
+.ctor{display:flex;align-items:center;gap:10px}
+.ctor-sw{width:24px;height:24px;border-radius:5px;flex-shrink:0;opacity:.9}
+.ctor-name{
+  font-family:'Quantico','Chakra Petch',sans-serif;
+  font-size:14px;font-weight:700;letter-spacing:.02em;color:#111;
+}
+.ctor-nat{font-size:10px;color:var(--muted);margin-top:2px}
+
+/* Race result header */
+.race-hd{
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.race-flag{font-size:26px;flex-shrink:0}
+.race-title{
+  font-family:'Quantico','Chakra Petch',sans-serif;
+  font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;line-height:1;color:#111;
+}
+.race-meta{font-size:11px;color:var(--muted);margin-top:3px}
+.race-round{
+  font-family:'Quantico','Chakra Petch',sans-serif;
+  font-size:22px;font-weight:700;color:var(--subtle);margin-left:auto;
+}
+
+/* Status badge */
+.status{
+  display:inline-block;font-size:9px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;padding:2px 6px;border-radius:4px;white-space:nowrap;
+  background:var(--surface);color:var(--muted);border:1px solid var(--border);
+}
+.status.ok{background:rgba(26,158,100,.08);color:#1A9E64;border-color:rgba(26,158,100,.18)}
+
+/* Race time */
+.rtime{font-family:'Quantico','Chakra Petch',monospace;font-size:11px;color:var(--muted);white-space:nowrap}
+.rtime.win{color:var(--gold);font-weight:700}
+
+/* Loading / error */
+.loading{
+  display:flex;align-items:center;justify-content:center;
+  padding:44px;gap:12px;color:var(--muted);font-size:13px;
+}
+.spin{
+  width:18px;height:18px;border:2px solid var(--border);
+  border-top-color:var(--red);border-radius:50%;
+  animation:fl-spin .7s linear infinite;flex-shrink:0;
+}
+.err{text-align:center;padding:32px;color:var(--muted);font-size:12px}
+
+/* Footer */
+.foot{
+  margin-top:18px;display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:8px;
+}
+.foot-src{font-size:10px;color:var(--subtle)}
+.foot-btn{
+  font-size:11px;color:var(--muted);background:none;
+  border:1px solid var(--border);border-radius:6px;padding:5px 12px;
+  cursor:pointer;font-family:'Quantico','Chakra Petch',sans-serif;transition:all .2s;
+}
+.foot-btn:hover{border-color:var(--red);color:var(--red)}
+
+/* Animations */
+@keyframes fl-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+@keyframes fl-spin{to{transform:rotate(360deg)}}
+
+/* Mobile */
+@media(max-width:480px){
+  .wrap{padding:24px 14px 52px}
+  .dcode,.col-wins{display:none}
+  .tab{min-width:72px;padding:8px 8px;font-size:11px}
+  .race-hd{gap:10px}
+}
+@media(min-width:481px) and (max-width:768px){
+  .wrap{padding:32px 20px 56px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Header -->
+  <div class="hd">
+    <div class="hd-stripe"></div>
+    <h1 class="hd-title">F1 <em>Championship</em> 2026</h1>
+    <div class="hd-badge"><div class="hd-dot"></div>Live Data</div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs" role="tablist">
+    <button class="tab on" data-tab="drivers">🏎 นักแข่ง</button>
+    <button class="tab" data-tab="constructors">🏆 ทีม</button>
+    <button class="tab" data-tab="lastrace">🏁 ผลล่าสุด</button>
+  </div>
+
+  <!-- Driver Standings -->
+  <div class="panel on" id="p-drivers">
+    <p class="panel-label">F1 2026 Driver Championship Standings</p>
+    <div id="c-drivers"><div class="loading"><div class="spin"></div>กำลังโหลด...</div></div>
+  </div>
+
+  <!-- Constructor Standings -->
+  <div class="panel" id="p-constructors">
+    <p class="panel-label">F1 2026 Constructor Championship Standings</p>
+    <div id="c-constructors"><div class="loading"><div class="spin"></div>กำลังโหลด...</div></div>
+  </div>
+
+  <!-- Last Race -->
+  <div class="panel" id="p-lastrace">
+    <div id="c-lastrace"><div class="loading"><div class="spin"></div>กำลังโหลด...</div></div>
+  </div>
+
+  <!-- Footer -->
+  <div class="foot">
+    <span class="foot-src">ข้อมูลจาก Jolpica F1 API</span>
+    <button class="foot-btn" id="btn-refresh">↻ รีเฟรช</button>
+  </div>
+
+</div>
+
+<script>
+const BASE='https://api.jolpi.ca/ergast/f1', S='2026';
+
+const TC={
+  'red_bull':'#3671C6','ferrari':'#E8002D','mercedes':'#27F4D2',
+  'mclaren':'#FF8000','aston_martin':'#358C75','alpine':'#FF87BC',
+  'williams':'#64C4FF','haas':'#B6BABD','rb':'#6692FF',
+  'racing_bulls':'#6692FF','kick_sauber':'#52E252','sauber':'#52E252',
+  'cadillac':'#CC1226','audi':'#C0001A',
+};
+function tc(id){
+  if(!id)return'#CCC';
+  const k=id.toLowerCase().replace(/\s+/g,'_');
+  for(const[a,b]of Object.entries(TC))if(k.includes(a)||a.includes(k))return b;
+  return'#CCC';
+}
+
+const FL={
+  'British':'🇬🇧','Dutch':'🇳🇱','Spanish':'🇪🇸','Monegasque':'🇲🇨',
+  'Australian':'🇦🇺','Mexican':'🇲🇽','German':'🇩🇪','Finnish':'🇫🇮',
+  'Canadian':'🇨🇦','French':'🇫🇷','Danish':'🇩🇰','Japanese':'🇯🇵',
+  'Thai':'🇹🇭','Chinese':'🇨🇳','American':'🇺🇸','Brazilian':'🇧🇷',
+  'Italian':'🇮🇹','New Zealander':'🇳🇿','Belgian':'🇧🇪','Swiss':'🇨🇭',
+  'Argentine':'🇦🇷','Argentinian':'🇦🇷','South African':'🇿🇦',
+};
+const CF={
+  'Australia':'🇦🇺','Bahrain':'🇧🇭','Saudi Arabia':'🇸🇦','Japan':'🇯🇵',
+  'China':'🇨🇳','United States':'🇺🇸','Monaco':'🇲🇨','Canada':'🇨🇦',
+  'Spain':'🇪🇸','Austria':'🇦🇹','Great Britain':'🇬🇧','Hungary':'🇭🇺',
+  'Belgium':'🇧🇪','Netherlands':'🇳🇱','Italy':'🇮🇹','Azerbaijan':'🇦🇿',
+  'Singapore':'🇸🇬','Mexico':'🇲🇽','Brazil':'🇧🇷','Qatar':'🇶🇦',
+  'Abu Dhabi':'🇦🇪',
+};
+
+async function api(p){
+  const r=await fetch(`${BASE}/${p}`,{cache:'no-store'});
+  if(!r.ok)throw new Error(r.status);
+  return r.json();
+}
+function pc(p){return p==1?'p1':p==2?'p2':p==3?'p3':''}
+
+/* Cache last race info */
+let lastRaceCache=null;
+async function getLastRace(){
+  if(lastRaceCache)return lastRaceCache;
+  try{
+    const d=await api(`${S}/last/results/`);
+    const races=d.MRData.RaceTable.Races;
+    if(races.length)lastRaceCache=races[0];
+  }catch{}
+  return lastRaceCache;
+}
+
+function raceHeaderHTML(race){
+  if(!race)return'';
+  const fl=CF[race.Circuit.Location.country]||'🏁';
+  return`<div class="race-hd">
+    <div class="race-flag">${fl}</div>
+    <div>
+      <div class="race-title">${race.raceName}</div>
+      <div class="race-meta">${race.Circuit.circuitName} · ${race.date}</div>
+    </div>
+    <div class="race-round">R${race.round}</div>
+  </div>`;
+}
+
+/* Driver Standings — load immediately, race header added after */
+async function loadDrivers(){
+  const el=document.getElementById('c-drivers');
+  try{
+    const d=await api(`${S}/driverstandings/`);
+    const list=d.MRData.StandingsTable.StandingsLists[0]?.DriverStandings||[];
+    if(!list.length)throw new Error();
+    let rows='';
+    list.forEach(s=>{
+      const dr=s.Driver,c=s.Constructors[0],pos=parseInt(s.position);
+      const col=tc(c?.constructorId),f=FL[dr.nationality]||'',w=parseInt(s.wins);
+      rows+=`<tr>
+        <td class="pos ${pc(pos)}">${pos}</td>
+        <td><div class="driver">
+          <div class="tbar" style="background:${col}"></div>
+          <div><div class="dname">${f} ${dr.givenName} ${dr.familyName}</div>
+          <div class="dteam">${c?.name||''}</div></div>
+          <div class="dcode">${dr.code||''}</div>
+        </div></td>
+        <td class="c col-wins"><span class="wins${w>0?' w':''}">${w>0?w+'W':'—'}</span></td>
+        <td class="r pts">${parseFloat(s.points).toFixed(0)} <small>pts</small></td>
+      </tr>`;
+    });
+    const table=`<div class="tbl-wrap"><table class="tbl">
+      <thead><tr>
+        <th style="width:34px">#</th><th>นักแข่ง</th>
+        <th class="c col-wins" style="width:52px">ชนะ</th>
+        <th class="r" style="width:90px">คะแนน</th>
+      </tr></thead><tbody>${rows}</tbody></table></div>`;
+    // Show standings immediately
+    el.innerHTML=`<div id="hd-drivers"></div><p class="panel-label" style="margin-bottom:12px">Driver Championship Standings</p>${table}`;
+    // Then load race header non-blocking
+    getLastRace().then(race=>{
+      const hd=document.getElementById('hd-drivers');
+      if(hd&&race){
+        hd.innerHTML=raceHeaderHTML(race);
+        document.querySelector('#p-drivers .panel-label').textContent='คะแนนสะสมหลัง '+race.raceName;
+      }
+    });
+  }catch{el.innerHTML='<div class="err">⚠️ ไม่สามารถโหลดข้อมูลได้ในขณะนี้</div>'}
+}
+
+/* Constructor Standings */
+async function loadConstructors(){
+  const el=document.getElementById('c-constructors');
+  try{
+    const d=await api(`${S}/constructorstandings/`);
+    const list=d.MRData.StandingsTable.StandingsLists[0]?.ConstructorStandings||[];
+    if(!list.length)throw new Error();
+    let rows='';
+    list.forEach(s=>{
+      const c=s.Constructor,pos=parseInt(s.position),col=tc(c.constructorId),w=parseInt(s.wins);
+      rows+=`<tr>
+        <td class="pos ${pc(pos)}">${pos}</td>
+        <td><div class="ctor">
+          <div class="ctor-sw" style="background:${col}"></div>
+          <div><div class="ctor-name">${c.name}</div>
+          <div class="ctor-nat">${c.nationality}</div></div>
+        </div></td>
+        <td class="c col-wins"><span class="wins${w>0?' w':''}">${w>0?w+'W':'—'}</span></td>
+        <td class="r pts">${parseFloat(s.points).toFixed(0)} <small>pts</small></td>
+      </tr>`;
+    });
+    const table=`<div class="tbl-wrap"><table class="tbl">
+      <thead><tr>
+        <th style="width:34px">#</th><th>ทีม</th>
+        <th class="c col-wins" style="width:52px">ชนะ</th>
+        <th class="r" style="width:90px">คะแนน</th>
+      </tr></thead><tbody>${rows}</tbody></table></div>`;
+    el.innerHTML=`<div id="hd-constructors"></div><p class="panel-label" style="margin-bottom:12px">Constructor Championship Standings</p>${table}`;
+    getLastRace().then(race=>{
+      const hd=document.getElementById('hd-constructors');
+      if(hd&&race){
+        hd.innerHTML=raceHeaderHTML(race);
+        document.querySelector('#p-constructors .panel-label').textContent='คะแนนสะสมหลัง '+race.raceName;
+      }
+    });
+  }catch{el.innerHTML='<div class="err">⚠️ ไม่สามารถโหลดข้อมูลได้ในขณะนี้</div>'}
+}
+
+/* Last Race */
+async function loadLastRace(){
+  const el=document.getElementById('c-lastrace');
+  try{
+    const race=await getLastRace();
+    if(!race)throw new Error();
+    const res=race.Results.slice(0,10);
+    let rows='';
+    res.forEach(r=>{
+      const dr=r.Driver,c=r.Constructor,pos=parseInt(r.position);
+      const col=tc(c?.constructorId),f=FL[dr.nationality]||'';
+      const fin=r.status==='Finished'||r.status.startsWith('+');
+      const t=pos===1?(r.Time?.time||r.status):(r.Time?.time?'+'+r.Time.time:r.status);
+      rows+=`<tr>
+        <td class="pos ${pc(pos)}">${pos}</td>
+        <td><div class="driver">
+          <div class="tbar" style="background:${col}"></div>
+          <div><div class="dname">${f} ${dr.givenName} ${dr.familyName}</div>
+          <div class="dteam">${c?.name||''}</div></div>
+        </div></td>
+        <td><span class="status${fin?' ok':''}">${fin?'Finished':r.status}</span></td>
+        <td class="r"><span class="rtime${pos===1?' win':''}">${t}</span></td>
+        <td class="r pts">${r.points>0?'+'+parseInt(r.points):'—'}</td>
+      </tr>`;
+    });
+    el.innerHTML=raceHeaderHTML(race)+
+      `<p class="panel-label" style="margin-bottom:12px">Top 10 ผลการแข่งขัน</p>
+      <div class="tbl-wrap"><table class="tbl">
+        <thead><tr>
+          <th style="width:34px">#</th><th>นักแข่ง</th>
+          <th>สถานะ</th><th class="r">เวลา</th>
+          <th class="r" style="width:56px">Pts</th>
+        </tr></thead><tbody>${rows}</tbody></table></div>`;
+  }catch{el.innerHTML='<div class="err">⚠️ ไม่สามารถโหลดข้อมูลได้ในขณะนี้</div>'}
+}
+
+/* Tabs */
+const loaded={drivers:false,constructors:false,lastrace:false};
+function loadTab(t){
+  if(t==='drivers')loadDrivers();
+  if(t==='constructors')loadConstructors();
+  if(t==='lastrace')loadLastRace();
+}
+document.querySelectorAll('.tab').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+    btn.classList.add('on');
+    const t=btn.dataset.tab;
+    document.getElementById('p-'+t).classList.add('on');
+    if(!loaded[t]){loadTab(t);loaded[t]=true;}
+  });
+});
+
+/* Refresh */
+document.getElementById('btn-refresh').addEventListener('click',()=>{
+  lastRaceCache=null;
+  Object.keys(loaded).forEach(k=>loaded[k]=false);
+  const t=document.querySelector('.tab.on')?.dataset.tab;
+  if(t){
+    document.getElementById('c-'+t).innerHTML='<div class="loading"><div class="spin"></div>กำลังโหลด...</div>';
+    loadTab(t);loaded[t]=true;
+  }
+});
+
+/* Auto-resize */
+function flSendHeight(){
+  window.parent.postMessage({type:'fl-resize',height:document.documentElement.scrollHeight},'*');
+}
+window.addEventListener('load',()=>{loadDrivers();loaded.drivers=true;flSendHeight();});
+if(window.ResizeObserver)new ResizeObserver(flSendHeight).observe(document.documentElement);
+</script>
+</body>
+</html>
