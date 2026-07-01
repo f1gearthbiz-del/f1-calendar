@@ -350,4 +350,17 @@ if (window.ResizeObserver) {
   new ResizeObserver(flSendHeight).observe(document.documentElement);
 }
 
+  // อัปเดต progress count อัตโนมัติจาก card จริง
+(function(){
+  var cards = document.querySelectorAll('#fl-grid .card');
+  var done = 0, live = 0, cancelled = 0;
+  cards.forEach(function(c){
+    if(c.dataset.status === 'done')      done++;
+    if(c.dataset.status === 'live')      live++;
+    if(c.dataset.status === 'cancelled') cancelled++;
+  });
+  var total = cards.length - cancelled;
+  var el = document.querySelector('.progress-count');
+  if(el) el.textContent = 'แข่งแล้ว ' + (done + live) + ' / ' + total + ' รายการ (ยกเลิก ' + cancelled + ')';
+})();
   </script>
