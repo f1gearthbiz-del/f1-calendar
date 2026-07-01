@@ -1,401 +1,340 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ตารางแข่ง F1 ฤดูกาล 2026 สนามไหนไปง่ายบ้าง? — FASTEST LAP</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;700&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Quantico:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{background:#fff;color:#111;font-family:'Quantico','Chakra Petch',sans-serif;min-height:100vh}
-:root{
-  --red:#E8002D;--gold:#B8860B;--green:#1A9E64;
-  --bg:#fff;--surface:#F4F4F4;--card:#FAFAFA;--border:#E2E2E2;
-  --text:#111;--muted:#888;--subtle:#C8C8C8;
-}
-a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
-
-/* ── Page ── */
-.pg{max-width:1080px;margin:0 auto;padding:48px 18px 80px}
-
-/* ── Hero ── */
-.hero{margin-bottom:40px}
-.hero__eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(232,0,45,.1);border:1px solid rgba(232,0,45,.25);
-  border-radius:20px;padding:5px 12px;
-  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);
-  margin-bottom:16px;
-}
-.hero__dot{width:6px;height:6px;border-radius:50%;background:var(--red);animation:pulse 1.5s ease-in-out infinite}
-.hero__title{
-  font-family:'Quantico','Chakra Petch',sans-serif;
-  font-size:clamp(32px,7vw,60px);font-weight:800;
-  text-transform:uppercase;letter-spacing:.02em;line-height:1;
-  margin-bottom:12px;
-}
-.hero__title em{color:var(--red);font-style:normal}
-.hero__sub{font-size:15px;color:#555;line-height:1.6;max-width:600px;margin-bottom:24px}
-
-/* Stats strip */
-.stats{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:8px}
-.stat{
-  background:#F7F7F7;border:1px solid var(--border);
-  border-radius:10px;padding:12px 18px;display:flex;align-items:center;gap:10px;flex:1;min-width:120px;
-}
-.stat__num{font-family:'Quantico','Chakra Petch',sans-serif;font-size:28px;font-weight:800;color:var(--red);line-height:1}
-.stat__label{font-size:11px;color:#888;line-height:1.4}
-
-/* ── Progress ── */
-.progress{margin-bottom:36px}
-.progress__header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.progress__title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888}
-.progress__count{font-family:'Quantico','Chakra Petch',sans-serif;font-size:14px;color:#888}
-.progress__dots{display:flex;flex-wrap:wrap;gap:5px}
-.pdot{
-  width:26px;height:10px;border-radius:3px;cursor:default;transition:transform .15s;
-  position:relative;
-}
-.pdot:hover{transform:scaleY(1.4)}
-.pdot--done{background:#D0D0D0}
-.pdot--live{background:var(--red);animation:glow 1.5s ease-in-out infinite}
-.pdot--next{background:rgba(232,0,45,.35)}
-.pdot--future{background:#E8E8E8;border:1px solid var(--border)}
-.pdot[title]{cursor:pointer}
-@keyframes glow{0%,100%{box-shadow:0 0 4px rgba(232,0,45,.5)}50%{box-shadow:0 0 10px rgba(232,0,45,.9)}}
-
-/* ── What's new ── */
-.whats-new{
-  background:linear-gradient(135deg,rgba(232,0,45,.05) 0%,rgba(232,0,45,.02) 100%);
-  border:1px solid rgba(232,0,45,.15);border-radius:12px;
-  padding:20px 22px;margin-bottom:36px;
-}
-.whats-new__title{
-  font-family:'Quantico','Chakra Petch',sans-serif;font-size:18px;font-weight:800;
-  text-transform:uppercase;letter-spacing:.06em;color:var(--red);margin-bottom:12px;
-}
-.whats-new ul{list-style:none;display:flex;flex-direction:column;gap:8px}
-.whats-new li{font-size:14px;color:#444;line-height:1.5;padding-left:18px;position:relative}
-.whats-new li::before{content:'›';position:absolute;left:0;color:var(--red);font-weight:700}
-.whats-new li strong{color:#111}
-
-/* ── Filter ── */
-.filter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:24px}
-.filter-btn{
-  padding:8px 16px;border:1px solid var(--border);border-radius:8px;background:var(--surface);
-  font-family:'Quantico','Chakra Petch',sans-serif;font-size:13px;font-weight:700;
-  letter-spacing:.05em;text-transform:uppercase;color:#666;cursor:pointer;transition:all .2s;
-}
-.filter-btn:hover{color:var(--text);border-color:#999}
-.filter-btn.on{background:var(--red);border-color:var(--red);color:#fff}
-
-/* ── Cards grid ── */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
-
-.card{
-  background:#fff;border:1px solid var(--border);border-radius:12px;
-  overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .2s;position:relative;
-}
-.card:hover{border-color:#bbb;box-shadow:0 4px 16px rgba(0,0,0,.07);transform:translateY(-2px)}
-.card.is-done{opacity:.5}
-.card.is-done:hover{opacity:.7}
-.card.is-live{border-color:var(--red);box-shadow:0 0 0 1px rgba(232,0,45,.15)}
-.card.is-hidden{display:none}
-
-/* Live pulse ring */
-.card.is-live::before{
-  content:'';position:absolute;inset:0;border-radius:12px;pointer-events:none;
-  border:1px solid var(--red);animation:ring 2s ease-out infinite;
-}
-@keyframes ring{0%{opacity:.6}100%{opacity:0;transform:scale(1.02)}}
-
-.card__top{padding:14px 16px 0;display:flex;align-items:flex-start;gap:12px}
-.card__round{
-  font-family:'Quantico','Chakra Petch',sans-serif;font-size:28px;font-weight:800;
-  color:#D0D0D0;line-height:1;flex-shrink:0;width:34px;text-align:right;
-}
-.card.is-live .card__round{color:var(--red)}
-.card.is-done .card__round{color:#DDD}
-.card__flag{font-size:22px;flex-shrink:0;margin-top:3px}
-.card__head{flex:1;min-width:0}
-.card__name{
-  font-family:'Quantico','Chakra Petch',sans-serif;font-size:17px;font-weight:800;
-  text-transform:uppercase;letter-spacing:.03em;line-height:1.15;color:#111;
-}
-.card.is-done .card__name{color:#AAA}
-.card__venue{font-size:12px;color:var(--muted);margin-top:3px}
-
-.card__badges{display:flex;flex-wrap:wrap;gap:5px;padding:10px 16px 0}
-.badge{
-  display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;
-  text-transform:uppercase;padding:3px 7px;border-radius:5px;
-}
-.badge--visa{background:rgba(26,158,100,.1);color:#1A9E64;border:1px solid rgba(26,158,100,.2)}
-.badge--novisa{background:#F5F5F5;color:#AAA;border:1px solid #E5E5E5}
-.badge--tour{background:rgba(60,100,220,.08);color:#3C64DC;border:1px solid rgba(60,100,220,.15)}
-.badge--night{background:rgba(120,80,200,.08);color:#7850C8;border:1px solid rgba(120,80,200,.15)}
-.badge--new{background:rgba(180,134,11,.08);color:#B8860B;border:1px solid rgba(180,134,11,.2)}
-.badge--live{background:var(--red);color:#fff;animation:badge-pulse 1.5s ease-in-out infinite}
-.badge--done{background:#F0F0F0;color:#BBB;border:1px solid #E8E8E8}
-@keyframes badge-pulse{0%,100%{opacity:1}50%{opacity:.7}}
-
-.card__body{padding:12px 16px 14px}
-.card__date{
-  display:flex;align-items:center;gap:6px;
-  font-size:12px;color:var(--muted);margin-bottom:8px;
-}
-.card__date-icon{font-size:11px}
-.card__circuit{
-  font-size:13px;color:#555;margin-bottom:8px;
-  display:flex;align-items:flex-start;gap:6px;
-}
-.card__circuit-icon{flex-shrink:0;margin-top:1px}
-.card__lap{
-  font-family:'Quantico','Chakra Petch',monospace;font-size:11px;color:#999;
-  border-top:1px solid var(--border);padding-top:8px;margin-top:8px;
-  display:flex;gap:6px;align-items:flex-start;
-}
-.card__lap-icon{flex-shrink:0}
-.card__note{
-  font-size:12px;color:#777;line-height:1.5;
-  border-top:1px solid var(--border);padding-top:8px;margin-top:8px;
-  font-style:italic;
-}
-
-/* ── CTA ── */
-.cta{
-  background:linear-gradient(135deg,#1a0608 0%,#2a0a0e 100%);
-  border:1px solid rgba(232,0,45,.3);border-radius:16px;
-  padding:32px 28px;margin-top:48px;
-  display:flex;align-items:center;flex-wrap:wrap;gap:20px;
-}
-.cta__text h3{font-family:'Quantico','Chakra Petch',sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;color:#fff}
-.cta__text p{font-size:13px;color:#aaa;line-height:1.6}
-.cta__btn{
-  display:inline-block;background:var(--red);color:#fff;
-  padding:12px 24px;border-radius:8px;
-  font-family:'Quantico','Chakra Petch',sans-serif;font-size:15px;font-weight:800;
-  text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;
-  transition:background .2s;text-decoration:none;flex-shrink:0;
-}
-.cta__btn:hover{background:#c0001f}
-
-/* ── Tour tip ── */
-.tour-tip{
-  background:#F8F8F8;border:1px solid var(--border);border-radius:12px;
-  padding:20px 22px;margin-top:20px;display:flex;align-items:flex-start;gap:14px;
-}
-.tour-tip__icon{font-size:24px;flex-shrink:0}
-.tour-tip__text{font-size:13px;color:#666;line-height:1.6}
-.tour-tip__text strong{color:#111}
-.tour-tip__text a{color:#3C64DC;text-decoration:underline}
-
-.pdot--cancelled{background:repeating-linear-gradient(45deg,#ddd,#ddd 2px,#f5f5f5 2px,#f5f5f5 6px);border:1px solid #ccc;opacity:.7}
-.badge--cancelled{background:rgba(220,50,50,.08);color:#c0392b;border:1px solid rgba(220,50,50,.18)}
-.card.is-cancelled{opacity:.4;filter:grayscale(30%)}
-.card.is-cancelled .card__name{text-decoration:line-through;color:#aaa}
-.card.is-cancelled .card__round{color:#ddd}
-.card.is-cancelled:hover{opacity:.55}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
-
-/* ── Mobile ── */
-@media(max-width:480px){
-  .pg{padding:28px 14px 60px}
-  .stats{gap:8px}
-  .stat{padding:10px 14px;min-width:100px}
-  .stat__num{font-size:22px}
-  .grid{grid-template-columns:1fr}
-  .cta{padding:24px 18px}
-  .pdot{width:18px;height:9px}
-}
+.fl-cal *,.fl-cal *::before,.fl-cal *::after{box-sizing:border-box;margin:0;padding:0}
+.fl-cal{font-family:'Quantico','Chakra Petch',sans-serif;color:#111;max-width:1080px;margin:0 auto;padding:40px 18px 72px}
+.fl-cal .eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(232,0,45,.07);border:1px solid rgba(232,0,45,.18);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#E8002D;margin-bottom:14px}
+.fl-cal .eyebrow-dot{width:6px;height:6px;border-radius:50%;background:#E8002D;animation:fl-pulse 1.5s ease-in-out infinite;flex-shrink:0}
+.fl-cal h1.cal-title{font-family:'Quantico','Chakra Petch',sans-serif;font-size:clamp(30px,7vw,56px);font-weight:700;text-transform:uppercase;letter-spacing:.02em;line-height:1.05;margin-bottom:10px;color:#111}
+.fl-cal h1.cal-title em{color:#E8002D;font-style:normal}
+.fl-cal .cal-sub{font-size:14px;color:#555;line-height:1.6;max-width:580px;margin-bottom:22px}
+.fl-cal .stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:0}
+.fl-cal .stat{background:#F6F6F6;border:1px solid #E5E5E5;border-radius:10px;padding:11px 16px;display:flex;align-items:center;gap:10px;flex:1;min-width:110px}
+.fl-cal .stat-num{font-family:'Quantico','Chakra Petch',sans-serif;font-size:26px;font-weight:700;line-height:1}
+.fl-cal .stat-lbl{font-size:11px;color:#888;line-height:1.35}
+.fl-cal .progress{margin:28px 0 32px}
+.fl-cal .progress-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.fl-cal .progress-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888}
+.fl-cal .progress-count{font-family:'Quantico','Chakra Petch',sans-serif;font-size:13px;color:#888}
+.fl-cal .dots{display:flex;flex-wrap:wrap;gap:5px}
+.fl-cal .dot{width:26px;height:10px;border-radius:3px;transition:transform .15s;cursor:default}
+.fl-cal .dot:hover{transform:scaleY(1.5)}
+.fl-cal .dot-done{background:#CECECE}
+.fl-cal .dot-live{background:#E8002D;animation:fl-glow 1.5s ease-in-out infinite}
+.fl-cal .dot-next{background:rgba(232,0,45,.3)}
+.fl-cal .dot-future{background:#EBEBEB;border:1px solid #DDD}
+.fl-cal .dot-cancelled{background:repeating-linear-gradient(45deg,#ddd,#ddd 2px,#f5f5f5 2px,#f5f5f5 6px);border:1px solid #ccc;opacity:.7}
+.fl-cal .wnew{background:rgba(232,0,45,.04);border:1px solid rgba(232,0,45,.13);border-radius:12px;padding:18px 20px;margin-bottom:30px}
+.fl-cal .wnew-title{font-family:'Quantico','Chakra Petch',sans-serif;font-size:17px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#E8002D;margin-bottom:10px}
+.fl-cal .wnew ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.fl-cal .wnew li{font-size:13px;color:#444;line-height:1.5;padding-left:16px;position:relative}
+.fl-cal .wnew li::before{content:'›';position:absolute;left:0;color:#E8002D;font-weight:700}
+.fl-cal .wnew li strong{color:#111}
+.fl-cal .filter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.fl-cal .fbtn{padding:7px 14px;border:1px solid #E0E0E0;border-radius:8px;background:#F5F5F5;font-family:'Quantico','Chakra Petch',sans-serif;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#777;cursor:pointer;transition:all .2s}
+.fl-cal .fbtn:hover{color:#111;border-color:#bbb}
+.fl-cal .fbtn.on{background:#E8002D;border-color:#E8002D;color:#fff}
+.fl-cal .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.fl-cal .card{background:#fff;border:1px solid #E5E5E5;border-radius:12px;overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .2s;position:relative}
+.fl-cal .card:hover{border-color:#C0C0C0;box-shadow:0 4px 16px rgba(0,0,0,.07);transform:translateY(-2px)}
+.fl-cal .card-done{opacity:.48}
+.fl-cal .card-done:hover{opacity:.7}
+.fl-cal .card-cancelled{opacity:.38;filter:grayscale(30%)}
+.fl-cal .card-cancelled:hover{opacity:.55}
+.fl-cal .card-cancelled .cname{text-decoration:line-through;color:#aaa}
+.fl-cal .card-live{border-color:#E8002D !important;box-shadow:0 0 0 1px rgba(232,0,45,.12) !important}
+.fl-cal .card.hidden{display:none}
+.fl-cal .card-live::before{content:'';position:absolute;inset:0;border-radius:12px;pointer-events:none;border:1px solid #E8002D;animation:fl-ring 2s ease-out infinite}
+.fl-cal .ctop{padding:13px 15px 0;display:flex;align-items:flex-start;gap:10px}
+.fl-cal .cround{font-family:'Quantico','Chakra Petch',sans-serif;font-size:26px;font-weight:700;color:#DEDEDE;line-height:1;flex-shrink:0;width:32px;text-align:right}
+.fl-cal .card-live .cround{color:#E8002D}
+.fl-cal .card-done .cround{color:#E0E0E0}
+.fl-cal .cflag{font-size:20px;flex-shrink:0;margin-top:2px}
+.fl-cal .chead{flex:1;min-width:0}
+.fl-cal .cname{font-family:'Quantico','Chakra Petch',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;line-height:1.2;color:#111}
+.fl-cal .card-done .cname{color:#AAAAAA}
+.fl-cal .cvenue{font-size:11px;color:#999;margin-top:2px}
+.fl-cal .cbadges{display:flex;flex-wrap:wrap;gap:4px;padding:9px 15px 0}
+.fl-cal .badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:4px}
+.fl-cal .b-visa{background:rgba(26,158,100,.1);color:#1A9E64;border:1px solid rgba(26,158,100,.18)}
+.fl-cal .b-novisa{background:#F5F5F5;color:#BBBBBB;border:1px solid #EBEBEB}
+.fl-cal .b-tour{background:rgba(60,100,220,.07);color:#3C64DC;border:1px solid rgba(60,100,220,.14)}
+.fl-cal .b-night{background:rgba(110,70,190,.07);color:#6E46BE;border:1px solid rgba(110,70,190,.14)}
+.fl-cal .b-new{background:rgba(180,134,11,.07);color:#B8860B;border:1px solid rgba(180,134,11,.18)}
+.fl-cal .b-live{background:#E8002D;color:#fff;animation:fl-bp 1.5s ease-in-out infinite}
+.fl-cal .b-done{background:#F4F4F4;color:#C8C8C8;border:1px solid #EBEBEB}
+.fl-cal .b-cancelled{background:rgba(220,50,50,.07);color:#c0392b;border:1px solid rgba(220,50,50,.15)}
+.fl-cal .cbody{padding:10px 15px 13px}
+.fl-cal .cdate{font-size:11px;color:#999;margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.fl-cal .ccircuit{font-size:12px;color:#555;margin-bottom:7px;display:flex;align-items:flex-start;gap:5px}
+.fl-cal .cnote{font-size:11px;color:#777;line-height:1.5;font-style:italic;border-top:1px solid #F0F0F0;padding-top:7px;margin-top:7px}
+.fl-cal .clap{font-size:10px;color:#AAAAAA;border-top:1px solid #F0F0F0;padding-top:7px;margin-top:7px;display:flex;gap:5px;font-family:'Quantico','Chakra Petch',monospace}
+.fl-cal .cta{background:linear-gradient(135deg,#1a0608 0%,#280a0d 100%);border:1px solid rgba(232,0,45,.25);border-radius:14px;padding:28px 24px;margin-top:44px;display:flex;align-items:center;flex-wrap:wrap;gap:18px}
+.fl-cal .cta h3{font-family:'Quantico','Chakra Petch',sans-serif;font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px;color:#fff}
+.fl-cal .cta p{font-size:12px;color:#999;line-height:1.6}
+.fl-cal .cta-btn{display:inline-block;background:#E8002D;color:#fff;padding:11px 22px;border-radius:8px;font-family:'Quantico','Chakra Petch',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;transition:background .2s;text-decoration:none;flex-shrink:0}
+.fl-cal .cta-btn:hover{background:#c0001f;color:#fff}
+.fl-cal .ttip{background:#F8F8F8;border:1px solid #EBEBEB;border-radius:12px;padding:18px 20px;margin-top:16px;display:flex;align-items:flex-start;gap:12px}
+.fl-cal .ttip-icon{font-size:22px;flex-shrink:0}
+.fl-cal .ttip-text{font-size:12px;color:#666;line-height:1.6}
+.fl-cal .ttip-text strong{color:#111}
+.fl-cal .ttip-text a{color:#3C64DC}
+@keyframes fl-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+@keyframes fl-glow{0%,100%{box-shadow:0 0 4px rgba(232,0,45,.5)}50%{box-shadow:0 0 10px rgba(232,0,45,.8)}}
+@keyframes fl-ring{0%{opacity:.5}100%{opacity:0;transform:scale(1.025)}}
+@keyframes fl-bp{0%,100%{opacity:1}50%{opacity:.65}}
+@media(max-width:480px){.fl-cal{padding:24px 14px 56px}.fl-cal .stats{gap:7px}.fl-cal .stat{padding:9px 12px;min-width:100px}.fl-cal .stat-num{font-size:22px}.fl-cal .grid{grid-template-columns:1fr}.fl-cal .dot{width:18px;height:9px}.fl-cal .cta{padding:20px 16px}}
 </style>
-</head>
-<body>
-<main class="pg" id="app">
 
-<!-- Hero -->
-<div class="hero">
-  <div class="hero__eyebrow"><div class="hero__dot"></div>F1 Season 2026</div>
-  <h1 class="hero__title">ตารางแข่ง<br><em>F1 2026</em><br>สนามไหนไปง่ายบ้าง?</h1>
-  <p class="hero__sub">22 สนามรอบโลก — เราเอาข้อมูล Visa, ทัวร์, และไฮไลต์ของแต่ละสนามมารวมไว้ให้แล้ว ไปเลยที่ไหนสะดวก!</p>
-  <div class="stats">
-    <div class="stat"><div class="stat__num">22</div><div class="stat__label">สนามแข่ง<br>ทั้งหมด</div></div>
-    <div class="stat"><div class="stat__num" style="color:var(--green)">3</div><div class="stat__label">สนามที่<br>ไม่ต้องขอวีซ่า</div></div>
-    <div class="stat"><div class="stat__num" style="color:#B48AFF">4</div><div class="stat__label">Night<br>Race</div></div>
-    <div class="stat"><div class="stat__num" style="color:var(--gold)">1</div><div class="stat__label">สนามใหม่<br>ปี 2026</div></div>
+<div class="fl-cal">
+
+  <div class="hero" style="margin-bottom:36px">
+    <div class="eyebrow"><div class="eyebrow-dot"></div>F1 Season 2026</div>
+    <h1 class="cal-title">ตารางแข่ง<br><em>F1 2026</em><br>สนามไหนไปง่ายบ้าง?</h1>
+    <p class="cal-sub">22 สนามรอบโลก — เราเอาข้อมูล Visa, ทัวร์, และไฮไลต์ของแต่ละสนามมารวมไว้ให้แล้ว</p>
+    <div class="stats">
+      <div class="stat"><div class="stat-num" style="color:#E8002D">22</div><div class="stat-lbl">สนามแข่ง<br>ทั้งหมด</div></div>
+      <div class="stat"><div class="stat-num" style="color:#1A9E64">3</div><div class="stat-lbl">ไม่ต้อง<br>ขอวีซ่า</div></div>
+      <div class="stat"><div class="stat-num" style="color:#6E46BE">4</div><div class="stat-lbl">Night<br>Race</div></div>
+      <div class="stat"><div class="stat-num" style="color:#B8860B">1</div><div class="stat-lbl">สนามใหม่<br>ปี 2026</div></div>
+    </div>
   </div>
-</div>
 
-<!-- Progress -->
-<div class="progress">
-  <div class="progress__header">
-    <span class="progress__title">ความคืบหน้าซีซั่น</span>
-    <span class="progress__count" id="progress-text"></span>
+  <div class="progress">
+    <div class="progress-hd">
+      <span class="progress-title">ความคืบหน้าซีซั่น</span>
+      <span class="progress-count">แข่งแล้ว 8 / 22 รายการ (ยกเลิก 2)</span>
+    </div>
+    <div class="dots">
+      <div class="dot dot-done" title="R1: Australian GP ✓"></div>
+      <div class="dot dot-done" title="R2: Chinese GP ✓"></div>
+      <div class="dot dot-done" title="R3: Japanese GP ✓"></div>
+      <div class="dot dot-cancelled" title="Bahrain GP ❌ ยกเลิก"></div>
+      <div class="dot dot-cancelled" title="Saudi Arabian GP ❌ ยกเลิก"></div>
+      <div class="dot dot-done" title="R4: Miami GP ✓"></div>
+      <div class="dot dot-done" title="R5: Canadian GP ✓"></div>
+      <div class="dot dot-done" title="R6: Monaco GP ✓"></div>
+      <div class="dot dot-done" title="R7: Spanish GP (Barcelona) ✓"></div>
+      <div class="dot dot-done" title="R8: Austrian GP ✓"></div>
+      <div class="dot dot-live" title="R9: British GP 🔴 LIVE"></div>
+      <div class="dot dot-next" title="R10: Belgian GP"></div>
+      <div class="dot dot-future" title="R11: Hungarian GP"></div>
+      <div class="dot dot-future" title="R12: Dutch GP"></div>
+      <div class="dot dot-future" title="R13: Italian GP"></div>
+      <div class="dot dot-future" title="R14: Spanish GP (Madrid)"></div>
+      <div class="dot dot-future" title="R15: Azerbaijan GP"></div>
+      <div class="dot dot-future" title="R16: Singapore GP"></div>
+      <div class="dot dot-future" title="R17: US GP"></div>
+      <div class="dot dot-future" title="R18: Mexican GP"></div>
+      <div class="dot dot-future" title="R19: Brazilian GP"></div>
+      <div class="dot dot-future" title="R20: Las Vegas GP"></div>
+      <div class="dot dot-future" title="R21: Qatar GP"></div>
+      <div class="dot dot-future" title="R22: Abu Dhabi GP"></div>
+    </div>
   </div>
-  <div class="progress__dots" id="progress-dots"></div>
-</div>
 
-<!-- What's new -->
-<div class="whats-new">
-  <div class="whats-new__title">🏎 What's new in 2026?</div>
-  <ul>
-    <li>ซีซั่น 2026 เป็นปีแรกของ <strong>"กฎเครื่องยนต์ใหม่"</strong> — แชสซีและยูนิตกำลังเปลี่ยนหมด</li>
-    <li><strong>Audi F1 Team</strong> เปิดตัวอย่างเป็นทางการ ต่อยอดมาจาก Stake F1 Kick Sauber</li>
-    <li><strong>Cadillac F1 Team</strong> ทีมที่ 11 ในกริด พร้อมดูโอ้ Valtteri Bottas + Sergio Perez</li>
-    <li><strong>Madrid Street Circuit 🇪🇸</strong> สนามใหม่กลางกรุง Madrid แทน Barcelona Catalunya (Barcelona ยังอยู่ในปฏิทินอีกสนาม)</li>
-  </ul>
-</div>
-
-<!-- Filter -->
-<div class="filter" id="filter-bar">
-  <button class="filter-btn on" data-f="upcoming">⏭ ที่เหลือ</button>
-  <button class="filter-btn" data-f="visa">✅ ไม่ต้องวีซ่า</button>
-  <button class="filter-btn" data-f="night">🌙 Night Race</button>
-  <button class="filter-btn" data-f="new">⭐ สนามใหม่</button>
-  <button class="filter-btn" data-f="all">🏁 ทั้งหมด</button>
-</div>
-
-<!-- Cards -->
-<div class="grid" id="cards"></div>
-
-<!-- CTA -->
-<div class="cta">
-  <div class="cta__text">
-    <h3>🛍 ช้อปเสื้อทีม F1 ลิขสิทธิ์แท้</h3>
-    <p>ครบทั้ง 10 ทีม อัปเดต Collection ฤดูกาลใหม่สดๆ ร้อนๆ พร้อมส่งในไทย</p>
+  <div class="wnew">
+    <div class="wnew-title">🏎 What's new in 2026?</div>
+    <ul>
+      <li>ซีซั่น 2026 เป็นปีแรกของ <strong>"กฎเครื่องยนต์ใหม่"</strong> — แชสซีและยูนิตกำลังเปลี่ยนหมด</li>
+      <li><strong>Audi F1 Team</strong> เปิดตัวอย่างเป็นทางการ ต่อยอดมาจาก Stake F1 Kick Sauber</li>
+      <li><strong>Cadillac F1 Team</strong> ทีมที่ 11 ในกริด พร้อมดูโอ้ Valtteri Bottas + Sergio Perez</li>
+      <li><strong>Madrid Street Circuit 🇪🇸</strong> สนามใหม่กลางกรุง Madrid — สนามสเปนที่ 2 ในปฏิทิน</li>
+    </ul>
   </div>
-  <a class="cta__btn" href="https://fastestlap.store">เลือกซื้อเลย →</a>
-</div>
 
-<div class="tour-tip">
-  <div class="tour-tip__icon">✈️</div>
-  <div class="tour-tip__text">
-    <strong>ไม่อยากจัดทริปเอง?</strong> ลองดู Package ทัวร์จาก
-    <a href="https://www.motorsport.travel/" target="_blank">Raceday Motorsport Travel</a>
-    — จัดทริป F1 มาตั้งแต่ปี 2024 มีใบอนุญาตนำเที่ยวอย่างถูกต้อง กินอิ่มนอนหลับแน่นอน 🏆
+  <div class="filter" id="fl-filter">
+    <button class="fbtn on" data-f="upcoming">⏭ ที่เหลือ</button>
+    <button class="fbtn" data-f="visa">✅ ไม่ต้องวีซ่า</button>
+    <button class="fbtn" data-f="night">🌙 Night Race</button>
+    <button class="fbtn" data-f="new">⭐ สนามใหม่</button>
+    <button class="fbtn" data-f="all">🏁 ทั้งหมด</button>
   </div>
-</div>
 
-</main>
+  <div class="grid" id="fl-grid">
+
+    <div class="card card-done" data-visa="0" data-night="0" data-new="0" data-status="done">
+      <div class="ctop"><div class="cround">R1</div><div class="cflag">🇦🇺</div><div class="chead"><div class="cname">Australian Grand Prix</div><div class="cvenue">Melbourne</div></div></div>
+      <div class="cbadges"><span class="badge b-done">✓ เสร็จแล้ว</span><span class="badge b-novisa">ต้องขอ Visa</span><span class="badge b-tour">✈️ มีทัวร์</span></div>
+      <div class="cbody"><div class="cdate">📅 5–8 มีนาคม</div><div class="ccircuit">🏁 Albert Park Circuit</div><div class="cnote">สนามถาวรกลางสวนสาธารณะ Albert Park บรรยากาศเมืองเมลเบิร์นรายรอบ</div><div class="clap">⏱ Charles Leclerc (Ferrari) – 1:20.260 (2022)</div></div>
+    </div>
+
+    <div class="card card-done" data-visa="1" data-night="0" data-new="0" data-status="done">
+      <div class="ctop"><div class="cround">R2</div><div class="cflag">🇨🇳</div><div class="chead"><div class="cname">Chinese Grand Prix</div><div class="cvenue">Shanghai</div></div></div>
+      <div class="cbadges"><span class="badge b-done">✓ เสร็จแล้ว</span><span class="badge b-visa">✅ Free Visa</span><span class="badge b-tour">✈️ มีทัวร์</span></div>
+      <div class="cbody"><div class="cdate">📅 12–15 มีนาคม</div><div class="ccircuit">🏁 Shanghai International Circuit</div><div class="cnote">ผู้ถือพาสปอร์ตไทยเข้าจีนได้ Free Visa มีทัวร์จัดพาไปด้วย</div><div class="clap">⏱ Michael Schumacher – 1:32.238 (2004)</div></div>
+    </div>
+
+    <div class="card card-done" data-visa="1" data-night="0" data-new="0" data-status="done">
+      <div class="ctop"><div class="cround">R3</div><div class="cflag">🇯🇵</div><div class="chead"><div class="cname">Japanese Grand Prix</div><div class="cvenue">Suzuka</div></div></div>
+      <div class="cbadges"><span class="badge b-done">✓ เสร็จแล้ว</span><span class="badge b-visa">✅ Free Visa</span><span class="badge b-tour">✈️ มีทัวร์</span></div>
+      <div class="cbody"><div class="cdate">📅 26–29 มีนาคม</div><div class="ccircuit">🏁 Suzuka International Racing Course</div><div class="cnote">Free Visa สำหรับคนไทย บินตรงจากไทยได้ มีทัวร์จัดไปชมด้วย</div><div class="clap">⏱ Lewis Hamilton – 1:30.983 (2019)</div></div>
+    </div>
+
+    <div class="card card-cancelled" data-visa="0" data-night="1" data-new="0" data-status="cancelled">
+      <div class="ctop"><div class="cround">✕</div><div class="cflag">🇧🇭</div><div class="chead"><div class="cname">Bahrain Grand Prix</div><div class="cvenue">Sakhir</div></div></div>
+      <div class="cbadges"><span class="badge b-cancelled">❌ ยกเลิก</span></div>
+      <div class="cbody"><div class="cdate">📅 9–12 เมษายน</div><div class="ccircuit">🏁 Bahrain International Circuit</div><div class="cnote">❌ ยกเลิกการแข่งขัน เนื่องจากสถานการณ์ความขัดแย้งในตะวันออกกลาง</div></div>
+    </div>
+
+    <div class="card card-cancelled" data-visa="0" data-night="1" data-new="0" data-status="cancelled">
+      <div class="ctop"><div class="cround">✕</div><div class="cflag">🇸🇦</div><div class="chead"><div class="cname">Saudi Arabian Grand Prix</div><div class="cvenue">Jeddah</div></div></div>
+      <div class="cbadges"><span class="badge b-cancelled">❌ ยกเลิก</span></div>
+      <div class="cbody"><div class="cdate">📅 16–19 เมษายน</div><div class="ccircuit">🏁 Jeddah Corniche Circuit</div><div class="cnote">❌ ยกเลิกการแข่งขัน เนื่องจากสถานการณ์ความขัดแย้งในตะวันออกกลาง</div></div>
+    </div>
+
+    <div class="card card-done" data-visa="0" data-night="0" data-new="0" data-status="done">
+      <div class="ctop"><div class="cround">R4</div><div class="cflag">🇺🇸</div><div class="chead"><div class="cname">Miami Grand Prix</div><div class="cvenue">Miami Gardens</div></div></div>
+      <div class="cbadges"><span class="badge b-done">✓ เสร็จแล้ว</span><span class="badge b-novisa">ต้องขอ Visa</span></div>
+      <div class="cbody"><div class="cdate">📅 30 เม.ย. – 3 พ.ค.</div><div class="ccircuit">🏁 Miami International Autodrome</div><div class="cnote">สนามกึ่งถาวรรอบสนามฟุตบอล Hard Rock Stadium ฟีลล์อเมริกันเต็มๆ</div><div class="clap">⏱ Max Verstappen – 1:29.708 (2023)</div></div>
+    </div>
+
+    <div class="card card-done" data-visa="0" data-night="0" data-new="0" data-status="done">
+      <div class="ctop"><div class="cround">R5</div><div class="cflag">🇨🇦</div><div class="chead"><div class="cname">Grand Prix du Canada</div><div class="cvenue">Montréal</div></div></div>
+      <div class="cbadges"><span class="badge b-done">✓ เสร็จแล้ว</span><span class="badge b-novisa">ต้องขอ Visa</span></div>
+      <div class="cbody"><div class="cdate">📅 21–24 พฤษภาคม</div><div class="ccircuit">🏁 Circuit Gilles Villeneuve</div><div class="cnote">สนามกึ่งถาวรบนเกาะกลางแม่น้ำ St. Lawrence บรรยากาศแคนาดาแท้ๆ</div><div class="clap">⏱ Valtteri Bottas – 1:13.078 (2019)</div></div>
+    </div>
+
+    <div class="card card-done" data-visa="0" data-night="0" data-new="0" data-status="done">
+      <div class="ctop"><div class="cround">R6</div><div class="cflag">🇲🇨</div><div class="chead"><div class="cname">Grand Prix de Monaco</div><div class="cvenue">Monte Carlo</div></div></div>
+      <div class="cbadges"><span class="badge b-done">✓ เสร็จแล้ว</span><span class="badge b-novisa">ต้องขอ Visa</span></div>
+      <div class="cbody"><div class="cdate">📅 4–7 มิถุนายน</div><div class="ccircuit">🏁 Circuit de Monaco</div><div class="cnote">Street Circuit ของแท้ ประเทศที่มีคนรวยเยอะที่สุดในโลก ทุกอย่างแพงมาก</div><div class="clap">⏱ Lewis Hamilton – 1:12.909 (2021)</div></div>
+    </div>
+
+    <div class="card card-done" data-visa="0" data-night="0" data-new="0" data-status="done">
+      <div class="ctop"><div class="cround">R7</div><div class="cflag">🇪🇸</div><div class="chead"><div class="cname">Spanish GP — Barcelona</div><div class="cvenue">Barcelona</div></div></div>
+      <div class="cbadges"><span class="badge b-done">✓ เสร็จแล้ว</span><span class="badge b-novisa">ต้องขอ Visa</span></div>
+      <div class="cbody"><div class="cdate">📅 11–14 มิถุนายน</div><div class="ccircuit">🏁 Circuit de Barcelona-Catalunya</div><div class="cnote">สนามถาวรใกล้บาร์เซโลนา อากาศอบอุ่น วิวภูเขาและทะเลเมดิเตอร์เรเนียน</div><div class="clap">⏱ Max Verstappen – 1:18.149 (2022)</div></div>
+    </div>
+
+    <div class="card card-done" data-visa="0" data-night="0" data-new="0" data-status="done">
+      <div class="ctop"><div class="cround">R8</div><div class="cflag">🇦🇹</div><div class="chead"><div class="cname">Austrian Grand Prix</div><div class="cvenue">Spielberg</div></div></div>
+      <div class="cbadges"><span class="badge b-done">✓ เสร็จแล้ว</span><span class="badge b-novisa">ต้องขอ Visa</span></div>
+      <div class="cbody"><div class="cdate">📅 25–28 มิถุนายน</div><div class="ccircuit">🏁 Red Bull Ring</div><div class="cnote">กลางเทือกเขา Alps ทางตอนใต้ออสเตรีย เบรกหนัก ทางตรงยาว แซงง่าย</div><div class="clap">⏱ Max Verstappen – 1:05.619 (2023)</div></div>
+    </div>
+
+    <div class="card card-live" data-visa="0" data-night="0" data-new="0" data-status="live">
+      <div class="ctop"><div class="cround">R9</div><div class="cflag">🇬🇧</div><div class="chead"><div class="cname">British Grand Prix</div><div class="cvenue">Silverstone</div></div></div>
+      <div class="cbadges"><span class="badge b-live">🔴 NEXT RACE</span><span class="badge b-novisa">ต้องขอ Visa</span></div>
+      <div class="cbody"><div class="cdate">📅 2–5 กรกฎาคม</div><div class="ccircuit">🏁 Silverstone Circuit</div><div class="cnote">สนามเก่าแก่ที่สุดในปฏิทิน F1 แวดล้อมด้วยทุ่งนาและชนบทอังกฤษแท้ๆ</div><div class="clap">⏱ Max Verstappen – 1:27.097 (2023)</div></div>
+    </div>
+
+    <div class="card" data-visa="0" data-night="0" data-new="0" data-status="upcoming">
+      <div class="ctop"><div class="cround">R10</div><div class="cflag">🇧🇪</div><div class="chead"><div class="cname">Belgian Grand Prix</div><div class="cvenue">Spa-Francorchamps</div></div></div>
+      <div class="cbadges"><span class="badge b-novisa">ต้องขอ Visa</span></div>
+      <div class="cbody"><div class="cdate">📅 16–19 กรกฎาคม</div><div class="ccircuit">🏁 Circuit de Spa-Francorchamps</div><div class="cnote">สนามในป่า Ardennes วิวสวยมาก โค้ง Eau Rouge ที่ท้าทายที่สุดในโลก</div><div class="clap">⏱ Lewis Hamilton – 1:41.252 (2020)</div></div>
+    </div>
+
+    <div class="card" data-visa="0" data-night="0" data-new="0" data-status="upcoming">
+      <div class="ctop"><div class="cround">R11</div><div class="cflag">🇭🇺</div><div class="chead"><div class="cname">Hungarian Grand Prix</div><div class="cvenue">Budapest</div></div></div>
+      <div class="cbadges"><span class="badge b-novisa">ต้องขอ Visa</span></div>
+      <div class="cbody"><div class="cdate">📅 23–26 กรกฎาคม</div><div class="ccircuit">🏁 Hungaroring</div><div class="cnote">กลางทุ่งนาและเนินรอบ Budapest เหนื่อยสำหรับนักขับ สนุกสำหรับคนดู</div><div class="clap">⏱ Lewis Hamilton – 1:16.627 (2020)</div></div>
+    </div>
+
+    <div class="card" data-visa="0" data-night="0" data-new="0" data-status="upcoming">
+      <div class="ctop"><div class="cround">R12</div><div class="cflag">🇳🇱</div><div class="chead"><div class="cname">Dutch Grand Prix</div><div class="cvenue">Zandvoort</div></div></div>
+      <div class="cbadges"><span class="badge b-novisa">ต้องขอ Visa</span></div>
+      <div class="cbody"><div class="cdate">📅 20–23 สิงหาคม</div><div class="ccircuit">🏁 Circuit Zandvoort</div><div class="cnote">ใกล้ชายทะเลเหนือ เต็มไปด้วยแฟน "Orange Army" ของ Verstappen ทุกปี</div><div class="clap">⏱ Max Verstappen – 1:11.097 (2023)</div></div>
+    </div>
+
+    <div class="card" data-visa="0" data-night="0" data-new="0" data-status="upcoming">
+      <div class="ctop"><div class="cround">R13</div><div class="cflag">🇮🇹</div><div class="chead"><div class="cname">Gran Premio d'Italia</div><div class="cvenue">Monza</div></div></div>
+      <div class="cbadges"><span class="badge b-novisa">ต้องขอ Visa</span></div>
+      <div class="cbody"><div class="cdate">📅 3–6 กันยายน</div><div class="ccircuit">🏁 Autodromo Nazionale Monza</div><div class="cnote">Temple of Speed กลางป่า Monza Park แฟน Ferrari เชียร์ล้นสนามทุกปี</div><div class="clap">⏱ Rubens Barrichello – 1:21.046 (2004)</div></div>
+    </div>
+
+    <div class="card" data-visa="0" data-night="0" data-new="1" data-status="upcoming">
+      <div class="ctop"><div class="cround">R14</div><div class="cflag">🇪🇸</div><div class="chead"><div class="cname">Spanish GP — Madrid</div><div class="cvenue">Madrid</div></div></div>
+      <div class="cbadges"><span class="badge b-new">⭐ สนามใหม่ 2026</span><span class="badge b-novisa">ต้องขอ Visa</span></div>
+      <div class="cbody"><div class="cdate">📅 10–13 กันยายน</div><div class="ccircuit">🏁 Madrid Street Circuit</div><div class="cnote">Street Circuit กลางกรุง Madrid — สนามใหม่ประจำปี 2026 ยังไม่มีสถิติ!</div><div class="clap">⏱ สนามใหม่ — ยังไม่มีสถิติ</div></div>
+    </div>
+
+    <div class="card" data-visa="0" data-night="0" data-new="0" data-status="upcoming">
+      <div class="ctop"><div class="cround">R15</div><div class="cflag">🇦🇿</div><div class="chead"><div class="cname">Azerbaijan Grand Prix</div><div class="cvenue">Baku</div></div></div>
+      <div class="cbadges"><span class="badge b-novisa">ต้องขอ Visa</span></div>
+      <div class="cbody"><div class="cdate">📅 23–26 กันยายน</div><div class="ccircuit">🏁 Baku City Circuit</div><div class="cnote">Street Circuit ยาวที่สุดในยุโรปกลาง ริมทะเล Caspian วิวอลังการ</div><div class="clap">⏱ Charles Leclerc – 1:43.009 (2023)</div></div>
+    </div>
+
+    <div class="card" data-visa="1" data-night="1" data-new="0" data-status="upcoming">
+      <div class="ctop"><div class="cround">R16</div><div class="cflag">🇸🇬</div><div class="chead"><div class="cname">Singapore Grand Prix</div><div class="cvenue">Marina Bay</div></div></div>
+      <div class="cbadges"><span class="badge b-visa">✅ Free Visa</span><span class="badge b-night">🌙 Night Race</span><span class="badge b-tour">✈️ มีทัวร์</span></div>
+      <div class="cbody"><div class="cdate">📅 9–11 ตุลาคม</div><div class="ccircuit">🏁 Marina Bay Street Circuit</div><div class="cnote">Night Race รอบอ่าว Marina Bay แสงไฟตระการตา อากาศร้อนชื้น นักขับบ่นเหนื่อยที่สุด</div><div class="clap">⏱ Lewis Hamilton – 1:36.015 (2018)</div></div>
+    </div>
+
+    <div class="card" data-visa="0" data-night="0" data-new="0" data-status="upcoming">
+      <div class="ctop"><div class="cround">R17</div><div class="cflag">🇺🇸</div><div class="chead"><div class="cname">United States Grand Prix</div><div class="cvenue">Austin, Texas</div></div></div>
+      <div class="cbadges"><span class="badge b-novisa">ต้องขอ Visa</span></div>
+      <div class="cbody"><div class="cdate">📅 22–25 ตุลาคม</div><div class="ccircuit">🏁 Circuit of the Americas (COTA)</div><div class="cnote">กลางเนินเท็กซัส มี Stadium Section ให้ชมได้รอบสนาม</div><div class="clap">⏱ Valtteri Bottas – 1:32.029 (2021)</div></div>
+    </div>
+
+    <div class="card" data-visa="0" data-night="0" data-new="0" data-status="upcoming">
+      <div class="ctop"><div class="cround">R18</div><div class="cflag">🇲🇽</div><div class="chead"><div class="cname">Gran Premio de México</div><div class="cvenue">Mexico City</div></div></div>
+      <div class="cbadges"><span class="badge b-novisa">ต้องขอ Visa</span></div>
+      <div class="cbody"><div class="cdate">📅 29 ต.ค. – 1 พ.ย.</div><div class="ccircuit">🏁 Autódromo Hermanos Rodríguez</div><div class="cnote">กลางเมือง Mexico City สนามอยู่สูงกว่าระดับน้ำทะเล ส่งผลต่อ Downforce</div><div class="clap">⏱ Max Verstappen – 1:14.758 (2022)</div></div>
+    </div>
+
+    <div class="card" data-visa="0" data-night="0" data-new="0" data-status="upcoming">
+      <div class="ctop"><div class="cround">R19</div><div class="cflag">🇧🇷</div><div class="chead"><div class="cname">Grande Prêmio de São Paulo</div><div class="cvenue">São Paulo</div></div></div>
+      <div class="cbadges"><span class="badge b-novisa">ต้องขอ Visa</span><span class="badge b-tour">✈️ มีทัวร์</span></div>
+      <div class="cbody"><div class="cdate">📅 5–8 พฤศจิกายน</div><div class="ccircuit">🏁 Autódromo José Carlos Pace (Interlagos)</div><div class="cnote">ฝนตกบ่อย เต็มไปด้วยแฟนชาวบราซิล เชียร์สนุกที่สุดในซีซั่น</div><div class="clap">⏱ Lewis Hamilton – 1:10.540 (2022)</div></div>
+    </div>
+
+    <div class="card" data-visa="0" data-night="1" data-new="0" data-status="upcoming">
+      <div class="ctop"><div class="cround">R20</div><div class="cflag">🇺🇸</div><div class="chead"><div class="cname">Las Vegas Grand Prix</div><div class="cvenue">Las Vegas</div></div></div>
+      <div class="cbadges"><span class="badge b-novisa">ต้องขอ Visa</span><span class="badge b-night">🌙 Night Race</span></div>
+      <div class="cbody"><div class="cdate">📅 18–21 พฤศจิกายน</div><div class="ccircuit">🏁 Las Vegas Street Circuit</div><div class="cnote">Street Circuit กลาง Las Vegas Strip ผ่านโรงแรมและคาสิโน วิวอลังการที่สุดในซีซั่น</div><div class="clap">⏱ Carlos Sainz – 1:35.490 (2023)</div></div>
+    </div>
+
+    <div class="card" data-visa="0" data-night="1" data-new="0" data-status="upcoming">
+      <div class="ctop"><div class="cround">R21</div><div class="cflag">🇶🇦</div><div class="chead"><div class="cname">Qatar Grand Prix</div><div class="cvenue">Doha</div></div></div>
+      <div class="cbadges"><span class="badge b-novisa">ต้องขอ Visa</span><span class="badge b-night">🌙 Night Race</span></div>
+      <div class="cbody"><div class="cdate">📅 26–29 พฤศจิกายน</div><div class="ccircuit">🏁 Lusail International Circuit</div><div class="cnote">Night Race ใกล้เมือง Lusail และทะเลทราย Qatar แสงสีจัดเต็ม</div><div class="clap">⏱ Max Verstappen – 1:23.196 (2023)</div></div>
+    </div>
+
+    <div class="card" data-visa="0" data-night="1" data-new="0" data-status="upcoming">
+      <div class="ctop"><div class="cround">R22</div><div class="cflag">🇦🇪</div><div class="chead"><div class="cname">Abu Dhabi Grand Prix</div><div class="cvenue">Yas Island</div></div></div>
+      <div class="cbadges"><span class="badge b-novisa">ต้องขอ Visa</span><span class="badge b-night">🌙 Night Race</span></div>
+      <div class="cbody"><div class="cdate">📅 3–6 ธันวาคม</div><div class="ccircuit">🏁 Yas Marina Circuit</div><div class="cnote">Night Race ปิดซีซั่น ริม Marina + Yas Island ไฟงาม Pit Stop เห็นชัด</div><div class="clap">⏱ Lewis Hamilton – 1:26.103 (2021)</div></div>
+    </div>
+
+  </div>
+
+  <div class="cta">
+    <div><h3>🛍 ช้อปเสื้อทีม F1 ลิขสิทธิ์แท้</h3><p>ครบทั้ง 10 ทีม อัปเดต Collection ฤดูกาลใหม่สดๆ ร้อนๆ พร้อมส่งในไทย</p></div>
+    <a class="cta-btn" href="https://fastestlap.store">เลือกซื้อเลย →</a>
+  </div>
+
+  <div class="ttip">
+    <div class="ttip-icon">✈️</div>
+    <div class="ttip-text"><strong>ไม่อยากจัดทริปเอง?</strong> ลองดู Package ทัวร์จาก <a href="https://www.motorsport.travel/" target="_blank">Raceday Motorsport Travel</a> — จัดทริป F1 มาตั้งแต่ปี 2024 มีใบอนุญาตนำเที่ยวอย่างถูกต้อง กินอิ่มนอนหลับแน่นอน 🏆</div>
+  </div>
+
+</div>
 
 <script>
-const RACES = [
-  { r:1, name:'Australian Grand Prix', date:'5–8 มีนาคม', venue:'Melbourne', circuit:'Albert Park Circuit', flag:'🇦🇺', night:false, visa:false, tour:true, lap:'Charles Leclerc (Ferrari) – 1:20.260 (2022)', status:'done', note:'สนามถาวรกลางสวนสาธารณะ Albert Park บรรยากาศเมืองเมลเบิร์นรายรอบ', newCircuit:false },
-  { r:2, name:'Chinese Grand Prix', date:'12–15 มีนาคม', venue:'Shanghai', circuit:'Shanghai International Circuit', flag:'🇨🇳', night:false, visa:true, tour:true, lap:'Michael Schumacher – 1:32.238 (2004)', status:'done', note:'ผู้ถือพาสปอร์ตไทยเข้าจีนได้ Free Visa และมีทัวร์จัดพาไป', newCircuit:false },
-  { r:3, name:'Japanese Grand Prix', date:'26–29 มีนาคม', venue:'Suzuka', circuit:'Suzuka International Racing Course', flag:'🇯🇵', night:false, visa:true, tour:true, lap:'Lewis Hamilton – 1:30.983 (2019)', status:'done', note:'Free Visa สำหรับคนไทย บินตรงจากไทยได้ มีทัวร์จัดไปชมด้วย', newCircuit:false },
-  { r:null, name:'Bahrain Grand Prix', date:'9–12 เมษายน', venue:'Sakhir', circuit:'Bahrain International Circuit', flag:'🇧🇭', night:true, visa:false, tour:false, lap:'Pedro de la Rosa – 1:31.447 (2005)', status:'cancelled', note:'❌ ยกเลิกการแข่งขัน เนื่องจากสถานการณ์ความขัดแย้งในตะวันออกกลาง', newCircuit:false },
-  { r:null, name:'Saudi Arabian Grand Prix', date:'16–19 เมษายน', venue:'Jeddah', circuit:'Jeddah Corniche Circuit', flag:'🇸🇦', night:true, visa:false, tour:false, lap:'Lewis Hamilton – 1:30.734 (2021)', status:'cancelled', note:'❌ ยกเลิกการแข่งขัน เนื่องจากสถานการณ์ความขัดแย้งในตะวันออกกลาง', newCircuit:false },
-  { r:4, name:'Miami Grand Prix', date:'30 เม.ย. – 3 พ.ค.', venue:'Miami Gardens', circuit:'Miami International Autodrome', flag:'🇺🇸', night:false, visa:false, tour:false, lap:'Max Verstappen – 1:29.708 (2023)', status:'done', note:'สนามกึ่งถาวรรอบสนามฟุตบอล Hard Rock Stadium ฟีลล์อเมริกันเต็มๆ', newCircuit:false },
-  { r:5, name:'Grand Prix du Canada', date:'21–24 พฤษภาคม', venue:'Montréal', circuit:'Circuit Gilles Villeneuve', flag:'🇨🇦', night:false, visa:false, tour:false, lap:'Valtteri Bottas – 1:13.078 (2019)', status:'done', note:'สนามกึ่งถาวรบนเกาะกลางแม่น้ำ St. Lawrence บรรยากาศแคนาดาแท้ๆ', newCircuit:false },
-  { r:6, name:'Grand Prix de Monaco', date:'4–7 มิถุนายน', venue:'Monte Carlo', circuit:'Circuit de Monaco', flag:'🇲🇨', night:false, visa:false, tour:false, lap:'Lewis Hamilton – 1:12.909 (2021)', status:'done', note:'Street Circuit ของแท้ ประเทศที่มีคนรวยเยอะที่สุดในโลก ทุกอย่างแพงสุดๆ', newCircuit:false },
-  { r:7, name:'Gran Premio de España (Barcelona)', date:'11–14 มิถุนายน', venue:'Barcelona', circuit:'Circuit de Barcelona-Catalunya', flag:'🇪🇸', night:false, visa:false, tour:false, lap:'Max Verstappen – 1:18.149 (2022)', status:'done', note:'สนามถาวรใกล้บาร์เซโลนา อากาศอบอุ่น วิวภูเขาและทะเลเมดิเตอร์เรเนียน', newCircuit:false },
-  { r:8, name:'Austrian Grand Prix', date:'25–28 มิถุนายน', venue:'Spielberg', circuit:'Red Bull Ring', flag:'🇦🇹', night:false, visa:false, tour:false, lap:'Max Verstappen – 1:05.619 (2023)', status:'live', note:'กลางเทือกเขา Alps ทางตอนใต้ของออสเตรีย เบรกหนัก ทางตรงยาว แซงง่าย', newCircuit:false },
-  { r:9, name:'British Grand Prix', date:'2–5 กรกฎาคม', venue:'Silverstone', circuit:'Silverstone Circuit', flag:'🇬🇧', night:false, visa:false, tour:false, lap:'Max Verstappen – 1:27.097 (2023)', status:'upcoming', note:'สนามเก่าแก่ที่สุดในปฏิทิน F1 แวดล้อมด้วยทุ่งนาและชนบทอังกฤษแท้ๆ', newCircuit:false },
-  { r:10, name:'Belgian Grand Prix', date:'16–19 กรกฎาคม', venue:'Spa-Francorchamps', circuit:'Circuit de Spa-Francorchamps', flag:'🇧🇪', night:false, visa:false, tour:false, lap:'Lewis Hamilton – 1:41.252 (2020)', status:'upcoming', note:'สนามในป่า Ardennes วิวสวยมาก โค้ง Eau Rouge ที่ท้าทายที่สุด', newCircuit:false },
-  { r:11, name:'Hungarian Grand Prix', date:'23–26 กรกฎาคม', venue:'Budapest', circuit:'Hungaroring', flag:'🇭🇺', night:false, visa:false, tour:false, lap:'Lewis Hamilton – 1:16.627 (2020)', status:'upcoming', note:'กลางทุ่งนาและเนินรอบ Budapest เหนื่อยสำหรับนักขับ แต่สนุกสำหรับคนดู', newCircuit:false },
-  { r:12, name:'Dutch Grand Prix', date:'20–23 สิงหาคม', venue:'Zandvoort', circuit:'Circuit Zandvoort', flag:'🇳🇱', night:false, visa:false, tour:false, lap:'Max Verstappen – 1:11.097 (2023)', status:'upcoming', note:'ใกล้ชายทะเลเหนือ เต็มไปด้วยแฟน "Orange Army" ของ Verstappen', newCircuit:false },
-  { r:13, name:'Gran Premio d\'Italia', date:'3–6 กันยายน', venue:'Monza', circuit:'Autodromo Nazionale Monza', flag:'🇮🇹', night:false, visa:false, tour:false, lap:'Rubens Barrichello – 1:21.046 (2004)', status:'upcoming', note:'Temple of Speed กลางป่า Monza Park แฟน Ferrari เชียร์ล้นสนามทุกปี', newCircuit:false },
-  { r:14, name:'Gran Premio de España (Madrid)', date:'10–13 กันยายน', venue:'Madrid', circuit:'Madrid Street Circuit', flag:'🇪🇸', night:false, visa:false, tour:false, lap:'สนามใหม่ — ยังไม่มีสถิติ', status:'upcoming', note:'Street Circuit กลางกรุง Madrid สนามใหม่ประจำปี 2026!', newCircuit:true },
-  { r:15, name:'Azerbaijan Grand Prix', date:'23–26 กันยายน', venue:'Baku', circuit:'Baku City Circuit', flag:'🇦🇿', night:false, visa:false, tour:false, lap:'Charles Leclerc – 1:43.009 (2023)', status:'upcoming', note:'Street Circuit ยาวที่สุดในยุโรปกลาง ริมทะเล Caspian วิวอลังการ', newCircuit:false },
-  { r:16, name:'Singapore Grand Prix', date:'9–11 ตุลาคม', venue:'Marina Bay', circuit:'Marina Bay Street Circuit', flag:'🇸🇬', night:true, visa:true, tour:true, lap:'Lewis Hamilton – 1:36.015 (2018)', status:'upcoming', note:'Night Race รอบอ่าว Marina Bay แสงไฟตระการตา อากาศร้อนชื้น นักขับบ่นเหนื่อยที่สุด', newCircuit:false },
-  { r:17, name:'United States Grand Prix', date:'22–25 ตุลาคม', venue:'Austin, Texas', circuit:'Circuit of the Americas (COTA)', flag:'🇺🇸', night:false, visa:false, tour:false, lap:'Valtteri Bottas – 1:32.029 (2021)', status:'upcoming', note:'กลางเนินเท็กซัส มี Stadium Section ให้ชมได้รอบสนาม', newCircuit:false },
-  { r:18, name:'Gran Premio de México', date:'29 ต.ค. – 1 พ.ย.', venue:'Mexico City', circuit:'Autódromo Hermanos Rodríguez', flag:'🇲🇽', night:false, visa:false, tour:false, lap:'Max Verstappen – 1:14.758 (2022)', status:'upcoming', note:'กลางเมือง Mexico City สนามอยู่สูงกว่าระดับน้ำทะเล ส่งผลต่อ Downforce', newCircuit:false },
-  { r:19, name:'Grande Prêmio de São Paulo', date:'5–8 พฤศจิกายน', venue:'São Paulo', circuit:'Autódromo José Carlos Pace (Interlagos)', flag:'🇧🇷', night:false, visa:false, tour:true, lap:'Lewis Hamilton – 1:10.540 (2022)', status:'upcoming', note:'ฝนตกบ่อย เต็มไปด้วยแฟนชาวบราซิล เชียร์สนุกที่สุดในซีซั่น มีทัวร์จัดไปชม', newCircuit:false },
-  { r:20, name:'Las Vegas Grand Prix', date:'18–21 พฤศจิกายน', venue:'Las Vegas', circuit:'Las Vegas Street Circuit', flag:'🇺🇸', night:true, visa:false, tour:false, lap:'Carlos Sainz – 1:35.490 (2023)', status:'upcoming', note:'Street Circuit กลาง Las Vegas Strip ผ่านโรงแรมและคาสิโน Night Race วิวอลังการที่สุดในซีซั่น', newCircuit:false },
-  { r:21, name:'Qatar Grand Prix', date:'26–29 พฤศจิกายน', venue:'Doha', circuit:'Lusail International Circuit', flag:'🇶🇦', night:true, visa:false, tour:false, lap:'Max Verstappen – 1:23.196 (2023)', status:'upcoming', note:'Night Race ใกล้เมือง Lusail และทะเลทราย Qatar แสงสีจัดเต็ม', newCircuit:false },
-  { r:22, name:'Abu Dhabi Grand Prix', date:'3–6 ธันวาคม', venue:'Yas Island', circuit:'Yas Marina Circuit', flag:'🇦🇪', night:true, visa:false, tour:false, lap:'Lewis Hamilton – 1:26.103 (2021)', status:'upcoming', note:'Night Race ปิดซีซั่น ริม Marina + Yas Island ไฟงาม Pit Stop เห็นชัด', newCircuit:false },
-];
-
-// Progress dots
-const dots = document.getElementById('progress-dots');
-const progressText = document.getElementById('progress-text');
-const done = RACES.filter(r=>r.status==='done').length;
-const live = RACES.filter(r=>r.status==='live').length;
-const cancelled = RACES.filter(r=>r.status==='cancelled').length;
-const total = RACES.length - cancelled;
-progressText.textContent = `แข่งแล้ว ${done+live} / ${total} รายการ (ยกเลิก ${cancelled})`;
-RACES.forEach(r => {
-  const d = document.createElement('div');
-  if(r.status==='cancelled') d.className='pdot pdot--cancelled';
-  else if(r.status==='done') d.className='pdot pdot--done';
-  else if(r.status==='live') d.className='pdot pdot--live';
-  else if(r.r===done+live+1) d.className='pdot pdot--next';
-  else d.className='pdot pdot--future';
-  d.title = `R${r.r}: ${r.name}${r.status==='cancelled'?' (ยกเลิก)':''}`;
-  dots.appendChild(d);
-});
-
-// Render cards
-function renderCard(r) {
-  const statusBadge = r.status==='cancelled'
-    ? `<span class="badge badge--cancelled">❌ ยกเลิก</span>`
-    : r.status==='done'
-    ? `<span class="badge badge--done">✓ เสร็จแล้ว</span>`
-    : r.status==='live'
-    ? `<span class="badge badge--live">🔴 LIVE WEEKEND</span>`
-    : '';
-  const isHidden = r.status==='cancelled' ? '' : '';
-  return `
-  <div class="card is-${r.status} ${r.newCircuit?'is-new':''}"
-       data-visa="${r.visa}" data-night="${r.night}" data-new="${r.newCircuit}" data-status="${r.status}">
-    <div class="card__top">
-      <div class="card__round">${r.status==='cancelled' ? '✕' : 'R'+r.r}</div>
-      <div class="card__flag">${r.flag}</div>
-      <div class="card__head">
-        <div class="card__name">${r.name}</div>
-        <div class="card__venue">${r.venue}</div>
-      </div>
-    </div>
-    <div class="card__badges">
-      ${statusBadge}
-      ${r.status!=='cancelled' ? (r.visa ? `<span class="badge badge--visa">✅ Free Visa</span>` : `<span class="badge badge--novisa">ต้องขอ Visa</span>`) : ''}
-      ${r.night && r.status!=='cancelled' ? `<span class="badge badge--night">🌙 Night Race</span>` : ''}
-      ${r.tour && r.status!=='cancelled' ? `<span class="badge badge--tour">✈️ มีทัวร์</span>` : ''}
-      ${r.newCircuit ? `<span class="badge badge--new">⭐ สนามใหม่</span>` : ''}
-    </div>
-    <div class="card__body">
-      <div class="card__date"><span class="card__date-icon">📅</span>${r.date}</div>
-      <div class="card__circuit"><span class="card__circuit-icon">🏁</span>${r.circuit}</div>
-      ${r.note ? `<div class="card__note">${r.note}</div>` : ''}
-      ${r.status!=='cancelled' ? `<div class="card__lap"><span class="card__lap-icon">⏱</span>${r.lap}</div>` : ''}
-    </div>
-  </div>`;
-}
-
-const grid = document.getElementById('cards');
-grid.innerHTML = RACES.map(renderCard).join('');
-
-// Filter — default to "upcoming" on load
-(function applyFilter(f){
-  document.querySelectorAll('.card').forEach(c => {
-    let show = true;
-    if(f==='visa')     show = c.dataset.visa==='true' && c.dataset.status!=='cancelled';
-    if(f==='night')    show = c.dataset.night==='true' && c.dataset.status!=='cancelled';
-    if(f==='new')      show = c.dataset.new==='true';
-    if(f==='upcoming') show = c.dataset.status==='upcoming' || c.dataset.status==='live';
-    if(f==='all')      show = true;
-    c.classList.toggle('is-hidden', !show);
+(function(){
+  var fb=document.getElementById('fl-filter');
+  var grid=document.getElementById('fl-grid');
+  if(!fb||!grid)return;
+  function apply(f){
+    grid.querySelectorAll('.card').forEach(function(c){
+      var show=true;
+      if(f==='visa')     show=c.dataset.visa==='1'&&c.dataset.status!=='cancelled';
+      if(f==='night')    show=c.dataset.night==='1'&&c.dataset.status!=='cancelled';
+      if(f==='new')      show=c.dataset.new==='1';
+      if(f==='upcoming') show=c.dataset.status==='upcoming'||c.dataset.status==='live';
+      if(f==='all')      show=true;
+      c.classList.toggle('hidden',!show);
+    });
+  }
+  apply('upcoming');
+  fb.addEventListener('click',function(e){
+    var btn=e.target.closest('.fbtn');
+    if(!btn)return;
+    fb.querySelectorAll('.fbtn').forEach(function(b){b.classList.remove('on')});
+    btn.classList.add('on');
+    apply(btn.dataset.f);
   });
-})('upcoming');
-
-document.getElementById('filter-bar').addEventListener('click', e => {
-  const btn = e.target.closest('.filter-btn');
-  if (!btn) return;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('on'));
-  btn.classList.add('on');
-  const f = btn.dataset.f;
-  document.querySelectorAll('.card').forEach(c => {
-    let show = true;
-    if(f==='visa')     show = c.dataset.visa==='true' && c.dataset.status!=='cancelled';
-    if(f==='night')    show = c.dataset.night==='true' && c.dataset.status!=='cancelled';
-    if(f==='new')      show = c.dataset.new==='true';
-    if(f==='upcoming') show = c.dataset.status==='upcoming' || c.dataset.status==='live';
-    if(f==='all')      show = true;
-    c.classList.toggle('is-hidden', !show);
-  });
-});
+})();
 </script>
-</body>
-</html>
