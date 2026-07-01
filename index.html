@@ -337,4 +337,17 @@
     apply(btn.dataset.f);
   });
 })();
-</script>
+
+
+function flSendHeight() {
+  window.parent.postMessage(
+    { type: 'fl-resize', height: document.documentElement.scrollHeight },
+    '*'
+  );
+}
+window.addEventListener('load', flSendHeight);
+if (window.ResizeObserver) {
+  new ResizeObserver(flSendHeight).observe(document.documentElement);
+}
+
+  </script>
