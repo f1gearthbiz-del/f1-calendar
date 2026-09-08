@@ -174,8 +174,30 @@ html,body{background:#fff;color:#111;font-family:'Quantico','Chakra Petch',sans-
 }
 .foot-btn:hover{border-color:var(--red);color:var(--red)}
 
-/* Animations */
-@keyframes fl-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+/* Countdown */
+.countdown{
+  background:linear-gradient(135deg,#1a0608 0%,#2a0a0e 100%);
+  border:1px solid rgba(232,0,45,.25);border-radius:14px;
+  padding:20px 24px;margin-bottom:20px;
+  display:flex;align-items:center;flex-wrap:wrap;gap:16px;
+}
+.cd-race{flex:1;min-width:160px}
+.cd-eyebrow{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px}
+.cd-name{font-family:'Quantico','Chakra Petch',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#fff;line-height:1.2}
+.cd-meta{font-size:11px;color:rgba(255,255,255,.5);margin-top:3px}
+.cd-timer{display:flex;gap:8px;align-items:center;flex-shrink:0}
+.cd-unit{display:flex;flex-direction:column;align-items:center;background:rgba(255,255,255,.08);border-radius:8px;padding:8px 12px;min-width:52px}
+.cd-num{font-family:'Quantico','Chakra Petch',sans-serif;font-size:24px;font-weight:700;color:#fff;line-height:1}
+.cd-lbl{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:3px}
+.cd-sep{font-size:20px;font-weight:700;color:rgba(232,0,45,.6);margin-bottom:12px}
+.cd-loading{font-size:12px;color:rgba(255,255,255,.4);padding:8px 0}
+
+/* GAP column */
+.gap-leader{font-family:'Quantico','Chakra Petch',sans-serif;font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.04em}
+.gap-val{font-family:'Quantico','Chakra Petch',sans-serif;font-size:12px;color:var(--muted)}
+.gap-close{color:#E8002D}
+
+{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
 @keyframes fl-spin{to{transform:rotate(360deg)}}
 
 /* Mobile */
@@ -198,6 +220,16 @@ html,body{background:#fff;color:#111;font-family:'Quantico','Chakra Petch',sans-
     <div class="hd-stripe"></div>
     <h1 class="hd-title">F1 <em>Championship</em> 2026</h1>
     <div class="hd-badge"><div class="hd-dot"></div>Live Data</div>
+  </div>
+
+  <!-- Next Race Countdown -->
+  <div class="countdown" id="fl-countdown">
+    <div class="cd-race">
+      <div class="cd-eyebrow">🏁 Next Race</div>
+      <div class="cd-name" id="cd-name"><div class="cd-loading">กำลังโหลด...</div></div>
+      <div class="cd-meta" id="cd-meta"></div>
+    </div>
+    <div class="cd-timer" id="cd-timer"></div>
   </div>
 
   <!-- Tabs -->
@@ -298,17 +330,71 @@ function raceHeaderHTML(race){
   </div>`;
 }
 
-/* Driver Standings — load immediately, race header added after */
+/* ── Next Race Countdown ─────────────────────────────── */
+let cdInterval=null;
+async function loadCountdown(){
+  try{
+    const d=await api(`${S}/races/`);
+    const races=d.MRData.RaceTable.Races;
+    const now=new Date();
+    // Find next race (race date + time)
+    const next=races.find(r=>{
+      const raceTime=r.time?new Date(`${r.date}T${r.time}`):new Date(`${r.date}T13:00:00Z`);
+      return raceTime>now;
+    });
+    if(!next){
+      document.getElementById('cd-name').textContent='ซีซั่น 2026 จบแล้วค่ะ';
+      return;
+    }
+    const fl=CF[next.Circuit.Location.country]||'🏁';
+    document.getElementById('cd-name').textContent=fl+' '+next.raceName;
+    document.getElementById('cd-meta').textContent=next.Circuit.circuitName+' · '+next.date;
+    // Countdown
+    const raceTime=next.time?new Date(`${next.date}T${next.time}`):new Date(`${next.date}T13:00:00Z`);
+    function tick(){
+      const diff=raceTime-new Date();
+      if(diff<=0){
+        document.getElementById('cd-timer').innerHTML='<span style="color:#E8002D;font-weight:700;font-size:14px">🔴 กำลังแข่งอยู่!</span>';
+        clearInterval(cdInterval);return;
+      }
+      const d=Math.floor(diff/86400000);
+      const h=Math.floor((diff%86400000)/3600000);
+      const m=Math.floor((diff%3600000)/60000);
+      const s=Math.floor((diff%60000)/1000);
+      document.getElementById('cd-timer').innerHTML=
+        `<div class="cd-unit"><div class="cd-num">${String(d).padStart(2,'0')}</div><div class="cd-lbl">วัน</div></div>
+         <div class="cd-sep">:</div>
+         <div class="cd-unit"><div class="cd-num">${String(h).padStart(2,'0')}</div><div class="cd-lbl">ชม.</div></div>
+         <div class="cd-sep">:</div>
+         <div class="cd-unit"><div class="cd-num">${String(m).padStart(2,'0')}</div><div class="cd-lbl">นาที</div></div>
+         <div class="cd-sep">:</div>
+         <div class="cd-unit"><div class="cd-num">${String(s).padStart(2,'0')}</div><div class="cd-lbl">วินาที</div></div>`;
+    }
+    tick();
+    cdInterval=setInterval(tick,1000);
+  }catch{
+    document.getElementById('cd-name').textContent='ไม่สามารถโหลดข้อมูลได้';
+  }
+}
+
+/* Driver Standings — with GAP column */
 async function loadDrivers(){
   const el=document.getElementById('c-drivers');
   try{
     const d=await api(`${S}/driverstandings/`);
     const list=d.MRData.StandingsTable.StandingsLists[0]?.DriverStandings||[];
     if(!list.length)throw new Error();
+    const leaderPts=parseFloat(list[0].points);
     let rows='';
-    list.forEach(s=>{
+    list.forEach((s,i)=>{
       const dr=s.Driver,c=s.Constructors[0],pos=parseInt(s.position);
       const col=tc(c?.constructorId),f=FL[dr.nationality]||'',w=parseInt(s.wins);
+      const pts=parseFloat(s.points);
+      const aheadPts=i===0?null:parseFloat(list[i-1].points);
+      const gap=aheadPts!==null?pts-aheadPts:0;
+      const gapHtml=pos===1
+        ?`<span class="gap-leader">LEADER</span>`
+        :`<span class="gap-val ${gap>=-5?'gap-close':''}">${gap.toFixed(0)}</span>`;
       rows+=`<tr>
         <td class="pos ${pc(pos)}">${pos}</td>
         <td><div class="driver">
@@ -318,18 +404,18 @@ async function loadDrivers(){
           <div class="dcode">${dr.code||''}</div>
         </div></td>
         <td class="c col-wins"><span class="wins${w>0?' w':''}">${w>0?w+'W':'—'}</span></td>
-        <td class="r pts">${parseFloat(s.points).toFixed(0)} <small>pts</small></td>
+        <td class="r pts">${pts.toFixed(0)} <small>pts</small></td>
+        <td class="r">${gapHtml}</td>
       </tr>`;
     });
     const table=`<div class="tbl-wrap"><table class="tbl">
       <thead><tr>
         <th style="width:34px">#</th><th>นักแข่ง</th>
         <th class="c col-wins" style="width:52px">ชนะ</th>
-        <th class="r" style="width:90px">คะแนน</th>
+        <th class="r" style="width:80px">คะแนน</th>
+        <th class="r" style="width:80px">GAP ▲</th>
       </tr></thead><tbody>${rows}</tbody></table></div>`;
-    // Show standings immediately
     el.innerHTML=`<div id="hd-drivers"></div><p class="panel-label" style="margin-bottom:12px">Driver Championship Standings</p>${table}`;
-    // Then load race header non-blocking
     getLastRace().then(race=>{
       const hd=document.getElementById('hd-drivers');
       if(hd&&race){
@@ -384,7 +470,7 @@ async function loadLastRace(){
   try{
     const race=await getLastRace();
     if(!race)throw new Error();
-    const res=race.Results.slice(0,10);
+    const res=race.Results;
     let rows='';
     res.forEach(r=>{
       const dr=r.Driver,c=r.Constructor,pos=parseInt(r.position);
@@ -404,7 +490,7 @@ async function loadLastRace(){
       </tr>`;
     });
     el.innerHTML=raceHeaderHTML(race)+
-      `<p class="panel-label" style="margin-bottom:12px">Top 10 ผลการแข่งขัน</p>
+      `<p class="panel-label" style="margin-bottom:12px">ผลการแข่งขันทุกคัน</p>
       <div class="tbl-wrap"><table class="tbl">
         <thead><tr>
           <th style="width:34px">#</th><th>นักแข่ง</th>
@@ -447,8 +533,126 @@ document.getElementById('btn-refresh').addEventListener('click',()=>{
 function flSendHeight(){
   window.parent.postMessage({type:'fl-resize',height:document.documentElement.scrollHeight},'*');
 }
-window.addEventListener('load',()=>{loadDrivers();loaded.drivers=true;flSendHeight();});
+window.addEventListener('load',()=>{loadDrivers();loaded.drivers=true;loadCountdown();flSendHeight();});
 if(window.ResizeObserver)new ResizeObserver(flSendHeight).observe(document.documentElement);
 </script>
+<!-- Shop by Team -->
+<div class="shop-teams">
+  <div class="shop-teams__inner">
+    <h2 class="shop-teams__title">SHOP BY TEAM</h2>
+    <div class="shop-teams__grid">
+
+      <a class="team-card" href="https://fastestlap.store/collections/red-bull-racing" target="_top">
+        <div class="team-card__img"><img src="https://fastestlap.store/cdn/shop/collections/1.png?v=1730128229" alt="Red Bull Racing" loading="lazy"></div>
+        <span class="team-card__link">Red Bull Racing →</span>
+      </a>
+
+      <a class="team-card" href="https://fastestlap.store/collections/scuderia-ferrari" target="_top">
+        <div class="team-card__img"><img src="https://fastestlap.store/cdn/shop/collections/2.png?v=1730128181" alt="Scuderia Ferrari" loading="lazy"></div>
+        <span class="team-card__link">Scuderia Ferrari →</span>
+      </a>
+
+      <a class="team-card" href="https://fastestlap.store/collections/mclaren" target="_top">
+        <div class="team-card__img"><img src="https://fastestlap.store/cdn/shop/collections/4.png?v=1730128209" alt="McLaren" loading="lazy"></div>
+        <span class="team-card__link">McLaren →</span>
+      </a>
+
+      <a class="team-card" href="https://fastestlap.store/collections/mercedes-amg-petronas-f1" target="_top">
+        <div class="team-card__img"><img src="https://fastestlap.store/cdn/shop/collections/3.png?v=1730128254" alt="Mercedes-AMG Petronas F1" loading="lazy"></div>
+        <span class="team-card__link">Mercedes-AMG Petronas F1 →</span>
+      </a>
+
+      <a class="team-card" href="https://fastestlap.store/collections/williams-racing" target="_top">
+        <div class="team-card__img"><img src="https://fastestlap.store/cdn/shop/collections/7.png?v=1766922730" alt="Williams Racing" loading="lazy"></div>
+        <span class="team-card__link">Williams Racing →</span>
+      </a>
+
+      <a class="team-card" href="https://fastestlap.store/collections/aston-martin-f1" target="_top">
+        <div class="team-card__img"><img src="https://fastestlap.store/cdn/shop/collections/5.png?v=1720165550" alt="Aston Martin F1" loading="lazy"></div>
+        <span class="team-card__link">Aston Martin F1 →</span>
+      </a>
+
+      <a class="team-card" href="https://fastestlap.store/collections/visa-cash-app-rb" target="_top">
+        <div class="team-card__img"><img src="https://fastestlap.store/cdn/shop/collections/6.png?v=1720165529" alt="Visa Cash App RB" loading="lazy"></div>
+        <span class="team-card__link">Visa Cash App RB →</span>
+      </a>
+
+      <a class="team-card" href="https://fastestlap.store/collections/audi-f1" target="_top">
+        <div class="team-card__img"><img src="https://fastestlap.store/cdn/shop/collections/9.png?v=1766922469" alt="Audi F1" loading="lazy"></div>
+        <span class="team-card__link">Audi F1 →</span>
+      </a>
+
+      <a class="team-card" href="https://fastestlap.store/collections/haas-f1" target="_top">
+        <div class="team-card__img"><img src="https://fastestlap.store/cdn/shop/collections/10.png?v=1720165477" alt="HAAS F1" loading="lazy"></div>
+        <span class="team-card__link">HAAS F1 →</span>
+      </a>
+
+      <a class="team-card" href="https://fastestlap.store/collections/alpine-f1" target="_top">
+        <div class="team-card__img"><img src="https://fastestlap.store/cdn/shop/collections/8.png?v=1730128335" alt="ALPINE F1" loading="lazy"></div>
+        <span class="team-card__link">ALPINE F1 →</span>
+      </a>
+
+      <a class="team-card" href="https://fastestlap.store/collections/cadillac-f1" target="_top">
+        <div class="team-card__img"><img src="https://fastestlap.store/cdn/shop/collections/cadillacf1logo.png?v=1758183251" alt="Cadillac F1" loading="lazy"></div>
+        <span class="team-card__link">Cadillac F1 →</span>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<style>
+.shop-teams{
+  background:#F5F5F5;padding:48px 20px 56px;margin-top:48px;
+  font-family:'Quantico','Chakra Petch',sans-serif;
+}
+.shop-teams__inner{max-width:1400px;margin:0 auto}
+.shop-teams__title{
+  color:#111;font-size:22px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:24px;
+}
+.shop-teams__grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:12px;
+}
+.team-card{
+  display:flex;flex-direction:column;gap:10px;
+  text-decoration:none;
+  transition:transform .2s;
+}
+.team-card:hover{transform:translateY(-4px)}
+.team-card__img{
+  background:#fff;
+  border-radius:10px;
+  aspect-ratio:1/1;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+  transition:opacity .2s,transform .2s;
+}
+.team-card:hover .team-card__img{
+  opacity:.85;
+}
+.team-card__img img{
+  width:80%;height:80%;
+  object-fit:contain;
+  display:block;
+}
+.team-card__link{
+  font-size:12px;color:#444;
+  font-weight:600;letter-spacing:.02em;
+  transition:color .2s;
+}
+.team-card:hover .team-card__link{color:#E8002D}
+
+@media(max-width:900px){
+  .shop-teams__grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:480px){
+  .shop-teams{padding:32px 14px 40px}
+  .shop-teams__grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .team-card__link{font-size:11px}
+}
+</style>
 </body>
 </html>
